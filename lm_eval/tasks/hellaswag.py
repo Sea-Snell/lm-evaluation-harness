@@ -14,7 +14,7 @@ state-of-the-art models.
 Homepage: https://rowanzellers.com/hellaswag/
 """
 import re
-from lm_eval.base import MultipleChoiceTask
+from lm_eval.base import MultipleChoiceTaskWithPerplexity
 
 
 _CITATION = """
@@ -27,7 +27,7 @@ _CITATION = """
 """
 
 
-class HellaSwag(MultipleChoiceTask):
+class HellaSwag(MultipleChoiceTaskWithPerplexity):
     VERSION = 0
     DATASET_PATH = "hellaswag"
     DATASET_NAME = None

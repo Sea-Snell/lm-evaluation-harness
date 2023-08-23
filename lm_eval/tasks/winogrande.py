@@ -113,7 +113,11 @@ class Winogrande(Task):
         :param results:
             The results of the requests created in construct_requests.
         """
-        return {"acc": np.argmax(results) == self.answer_to_num[doc["answer"]]}
+        return {
+            "acc": np.argmax(results) == self.answer_to_num[doc["answer"]], 
+            "gold_logprob": results[self.answer_to_num[doc["answer"]]], 
+            "norm_gold_logprob": results[self.answer_to_num[doc["answer"]]] - np.log(np.sum(np.exp(results)))
+        }
 
     def aggregation(self):
         """
@@ -121,7 +125,11 @@ class Winogrande(Task):
             A dictionary where keys are the names of submetrics and values are
             functions that aggregate a list of metrics
         """
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
     def higher_is_better(self):
         """
@@ -129,4 +137,8 @@ class Winogrande(Task):
             A dictionary where keys are the names of submetrics and values are
             whether a higher value of the submetric is better
         """
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }

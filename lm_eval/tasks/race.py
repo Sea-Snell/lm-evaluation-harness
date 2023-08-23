@@ -154,7 +154,13 @@ class RACE(Task):
         """
         gold = self.letter_to_num[self.last_problem(doc)["answer"]]
         pred = np.argmax(results)
-        return {"acc": int(pred == gold)}
+        gold_logprob = results[gold]
+        norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(results)))
+        return {
+            "acc": int(pred == gold),
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def aggregation(self):
         """
@@ -162,7 +168,11 @@ class RACE(Task):
             A dictionary where keys are the names of submetrics and values are
             functions that aggregate a list of metrics
         """
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
     def higher_is_better(self):
         """
@@ -170,4 +180,8 @@ class RACE(Task):
             A dictionary where keys are the names of submetrics and values are
             whether a higher value of the submetric is better
         """
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }

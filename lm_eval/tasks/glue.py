@@ -366,13 +366,27 @@ class RTE(Task):
         ll_true, ll_false = results
         pred = ll_false > ll_true
         gold = doc["label"]
-        return {"acc": pred == gold}
+        gold_logprob = ll_false if gold else ll_true
+        norm_gold_logprob = gold_logprob - np.logaddexp(ll_true, ll_false)
+        return {
+            "acc": pred == gold,
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def higher_is_better(self):
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }
 
     def aggregation(self):
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
 
 # Similarity and Paraphrase Tasks

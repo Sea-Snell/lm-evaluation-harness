@@ -79,13 +79,28 @@ class BoolQ(Task):
 
         acc = 1.0 if (ll_yes > ll_no) == gold else 0.0
 
-        return {"acc": acc}
+        gold_logprob = ll_yes if gold else ll_no
+        norm_gold_logprob = gold_logprob - np.logaddexp(ll_yes, ll_no)
+
+        return {
+            "acc": acc,
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def higher_is_better(self):
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }
 
     def aggregation(self):
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
 
 class CommitmentBank(Task):
@@ -347,22 +362,30 @@ class ReCoRD(Task):
         em = metric_max_over_ground_truths(
             squad_metrics.compute_exact, prediction, gold_label_set
         )
+        gold_logprob = sum([ll for idx, (ll, _) in enumerate(results) if doc["entities"][idx] in gold_label_set])
+        norm_gold_logprob = gold_logprob - np.logaddexp.reduce([ll for ll, _ in results])
 
         return {
             "f1": f1,
             "em": em,
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
         }
 
     def higher_is_better(self):
         return {
             "f1": True,
             "em": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
         }
 
     def aggregation(self):
         return {
             "f1": mean,
             "em": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
         }
 
 
@@ -412,14 +435,28 @@ class WordsInContext(Task):
         gold = doc["label"]
 
         acc = 1.0 if (ll_yes > ll_no) == gold else 0.0
+        gold_logprob = ll_yes if gold else ll_no
+        norm_gold_logprob = gold_logprob - np.logaddexp(ll_yes, ll_no)
 
-        return {"acc": acc}
+        return {
+            "acc": acc,
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def higher_is_better(self):
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }
 
     def aggregation(self):
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
 
 class SGWinogradSchemaChallenge(Task):

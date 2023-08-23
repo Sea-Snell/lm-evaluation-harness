@@ -12,7 +12,7 @@ important shortcomings.
 
 Homepage: https://github.com/hendrycks/test
 """
-from lm_eval.base import MultipleChoiceTask
+from lm_eval.base import MultipleChoiceTaskWithPerplexity
 
 _CITATION = """
 @article{hendryckstest2021,
@@ -101,7 +101,7 @@ def create_task(subject):
     return HendrycksTest
 
 
-class GeneralHendrycksTest(MultipleChoiceTask):
+class GeneralHendrycksTest(MultipleChoiceTaskWithPerplexity):
     VERSION = 1
     DATASET_PATH = "cais/mmlu"
     DATASET_NAME = None

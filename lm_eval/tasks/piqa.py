@@ -9,7 +9,7 @@ actually learning about the world?
 
 Homepage: https://yonatanbisk.com/piqa/
 """
-from lm_eval.base import MultipleChoiceTask
+from lm_eval.base import MultipleChoiceTaskWithPerplexity
 
 
 _CITATION = """
@@ -26,7 +26,7 @@ _CITATION = """
 """
 
 
-class PiQA(MultipleChoiceTask):
+class PiQA(MultipleChoiceTaskWithPerplexity):
     VERSION = 0
     DATASET_PATH = "piqa"
     DATASET_NAME = None

@@ -775,6 +775,53 @@ class MultipleChoiceTask(Task):
             "acc_norm": mean,
         }
 
+class MultipleChoiceTaskWithPerplexity(Task):
+    def doc_to_target(self, doc):
+        return " " + doc["choices"][doc["gold"]]
+
+    def construct_requests(self, doc, ctx):
+        lls = [
+            rf.loglikelihood(ctx, " {}".format(choice))[0] for choice in doc["choices"]
+        ]
+
+        return lls
+
+    def process_results(self, doc, results):
+        gold = doc["gold"]
+
+        acc = 1.0 if np.argmax(results) == gold else 0.0
+        completion_len = np.array([float(len(i)) for i in doc["choices"]])
+        acc_norm = 1.0 if np.argmax(results / completion_len) == gold else 0.0
+        gold_logprob = results[gold]
+        gold_logprob_norm = results[gold] / completion_len[gold]
+        norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(results)))
+
+        return {
+            "acc": acc,
+            "acc_norm": acc_norm,
+            "gold_logprob": gold_logprob,
+            "gold_logprob_norm": gold_logprob_norm,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
+
+    def higher_is_better(self):
+        return {
+            "acc": True,
+            "acc_norm": True,
+            "gold_logprob": True, 
+            "gold_logprob_norm": True,
+            "norm_gold_logprob": True,
+        }
+
+    def aggregation(self):
+        return {
+            "acc": mean,
+            "acc_norm": mean,
+            "gold_logprob": mean,
+            "gold_logprob_norm": mean,
+            "norm_gold_logprob": mean,
+        }
+
 
 class PerplexityTask(Task, abc.ABC):
     def should_decontaminate(self):

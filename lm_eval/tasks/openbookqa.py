@@ -14,7 +14,7 @@ based algorithm and a word co-occurrence algorithm.
 
 Homepage: https://allenai.org/data/open-book-qa
 """
-from lm_eval.base import MultipleChoiceTask
+from lm_eval.base import MultipleChoiceTaskWithPerplexity
 
 
 _CITATION = """
@@ -27,7 +27,7 @@ _CITATION = """
 """
 
 
-class OpenBookQA(MultipleChoiceTask):
+class OpenBookQA(MultipleChoiceTaskWithPerplexity):
     VERSION = 0
     DATASET_PATH = "openbookqa"
     DATASET_NAME = "main"
