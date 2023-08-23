@@ -795,6 +795,7 @@ class MultipleChoiceTaskWithPerplexity(Task):
         gold_logprob = results[gold]
         gold_logprob_norm = results[gold] / completion_len[gold]
         norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(results)))
+        norm_gold_logprob_norm = gold_logprob_norm - np.log(np.sum(np.exp(results / completion_len)))
 
         return {
             "acc": acc,
@@ -802,6 +803,7 @@ class MultipleChoiceTaskWithPerplexity(Task):
             "gold_logprob": gold_logprob,
             "gold_logprob_norm": gold_logprob_norm,
             "norm_gold_logprob": norm_gold_logprob,
+            "norm_gold_logprob_norm": norm_gold_logprob_norm,
         }
 
     def higher_is_better(self):
@@ -811,6 +813,7 @@ class MultipleChoiceTaskWithPerplexity(Task):
             "gold_logprob": True, 
             "gold_logprob_norm": True,
             "norm_gold_logprob": True,
+            "norm_gold_logprob_norm": True,
         }
 
     def aggregation(self):
@@ -820,6 +823,7 @@ class MultipleChoiceTaskWithPerplexity(Task):
             "gold_logprob": mean,
             "gold_logprob_norm": mean,
             "norm_gold_logprob": mean,
+            "norm_gold_logprob_norm": mean,
         }
 
 
