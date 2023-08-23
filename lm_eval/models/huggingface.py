@@ -356,6 +356,9 @@ class HuggingFaceAutoLM(BaseLM):
             pretrained if tokenizer is None else tokenizer,
             revision=revision + ("/" + subfolder if subfolder is not None else ""),
             trust_remote_code=trust_remote_code,
+            # for LLaMA: removes tokenization bug. See (https://github.com/huggingface/transformers/pull/24565). Can remove once it becomes default.
+            legacy=False,
+            use_fast=False,
         )
         tokenizer.pad_token = tokenizer.eos_token
         return tokenizer
