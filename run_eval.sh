@@ -3,6 +3,8 @@
 
 # log_loss_v_downstream_experiments
 
+conda activate torch_install
+
 # 3B_v1
 for STEP in 10000 50000 100000 150000 200000 250000
 do
