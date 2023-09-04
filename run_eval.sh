@@ -6,67 +6,67 @@
 conda activate torch_install
 
 # 3B_v1
-for STEP in 10000 50000 100000 150000 200000 250000
-do
-        echo "3B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=8
-        export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_1
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
-                --num_fewshot=0 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/0shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hendrycksTest-*,triviaqa' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "3B_v1 ($STEP) done."
-done
+# for STEP in 10000 50000 100000 150000 200000 250000
+# do
+#         echo "3B_v1 ($STEP) starting ..."
+#         export BATCH_SIZE=8
+#         export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_1
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
+#                 --num_fewshot=0 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/0shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hendrycksTest-*,triviaqa' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "3B_v1 ($STEP) done."
+# done
 
 # 7B_v1
-for STEP in 10000 50000 100000 150000 200000 250000
-do
-        echo "7B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=8
-        export MODEL_PATH=/shared/csnell/openllama/7B_v1/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/openllama/7B_v1/$STEP/evals_1
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
-                --num_fewshot=0 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/0shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hendrycksTest-*,triviaqa' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "7B_v1 ($STEP) done."
-done
+# for STEP in 10000 50000 100000 150000 200000 250000
+# do
+#         echo "7B_v1 ($STEP) starting ..."
+#         export BATCH_SIZE=8
+#         export MODEL_PATH=/shared/csnell/openllama/7B_v1/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/openllama/7B_v1/$STEP/evals_1
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
+#                 --num_fewshot=0 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/0shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hendrycksTest-*,triviaqa' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "7B_v1 ($STEP) done."
+# done
 
 # 13B_v1
-for STEP in 10000 50000 100000 150000 200000 250000
+for STEP in 20000 400000 500000
 do
         echo "13B_v1 ($STEP) starting ..."
         export BATCH_SIZE=8
@@ -94,6 +94,35 @@ do
                 --no_cache
         echo "13B_v1 ($STEP) done."
 done
+
+# for STEP in 10000 50000 100000 150000 200000 250000
+# do
+#         echo "13B_v1 ($STEP) starting ..."
+#         export BATCH_SIZE=8
+#         export MODEL_PATH=/shared/csnell/openllama/13B_v1/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/openllama/13B_v1/$STEP/evals_1
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
+#                 --num_fewshot=0 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/0shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'hendrycksTest-*,triviaqa' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "13B_v1 ($STEP) done."
+# done
 
 # 8/25/23
 
