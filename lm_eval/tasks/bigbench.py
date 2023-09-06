@@ -36,8 +36,11 @@ class BigBenchJsonTask(Task):
         self._random_seed = 42
         with open(json_path) as file:
             self._task_json = json.load(file)
+        if "likelihood" not in self._task_json["metrics"]:
+            self._task_json["metrics"] += ["likelihood"] # always measure likelihood
         self._has_multi_choice = "multiple_choice_grade" in self._task_json["metrics"]
         self._has_generative = "exact_str_match" in self._task_json["metrics"]
+        self._has_likelihood = "likelihood" in self._task_json["metrics"]
         self.output_regex = self._task_json.get("output_regex", None)
         self.stop_string = self._task_json.get("stop_string", None)
         if self.output_regex is None and self.stop_string is None:
@@ -83,8 +86,8 @@ class BigBenchJsonTask(Task):
 
     def construct_requests(self, doc, ctx):
         requests = []
-        if self._has_multi_choice:
-            queries = self._doc_to_queries(doc)
+        queries = self._doc_to_queries(doc)
+        if self._has_multi_choice or self._has_likelihood:
             requests += [
                 rf.loglikelihood(ctx, continuation)[0] for continuation in queries
             ]
@@ -102,6 +105,18 @@ class BigBenchJsonTask(Task):
                 queries = self._doc_to_queries(doc)
                 highest_score_index = _argmax(likelihoods)
                 highest_score_key = queries[highest_score_index]
+
+                gold_idx = None
+                for idx, query in enumerate(queries):
+                    if doc["target_scores"][query] == 1:
+                        gold_idx = idx
+                completion_len = np.array([float(len(i)) for i in queries])
+
+                gold_logprob = likelihoods[gold_idx]
+                gold_logprob_norm = likelihoods[gold_idx] / completion_len[gold_idx]
+                norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(likelihoods)))
+                norm_gold_logprob_norm = gold_logprob_norm - np.log(np.sum(np.exp(likelihoods / completion_len)))
+
                 res["multiple_choice_grade"] = doc["target_scores"][highest_score_key]
             elif metric == "exact_str_match":
                 postprocessed = _postprocess_output(
@@ -111,6 +126,25 @@ class BigBenchJsonTask(Task):
                     output_regex=self.output_regex,
                 )
                 res["exact_str_match"] = int(postprocessed == doc["target"])
+            elif metric == "likelihood":
+                likelihoods = results[:-1] if self._has_generative else results
+                queries = self._doc_to_queries(doc)
+
+                gold_idx = None
+                for idx, query in enumerate(queries):
+                    if doc["target_scores"][query] == 1:
+                        gold_idx = idx
+                completion_len = np.array([float(len(i)) for i in queries])
+
+                gold_logprob = likelihoods[gold_idx]
+                gold_logprob_norm = likelihoods[gold_idx] / completion_len[gold_idx]
+                norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(likelihoods)))
+                norm_gold_logprob_norm = gold_logprob_norm - np.log(np.sum(np.exp(likelihoods / completion_len)))
+
+                res["gold_logprob"] = gold_logprob
+                res["gold_logprob_norm"] = gold_logprob_norm
+                res["norm_gold_logprob"] = norm_gold_logprob
+                res["norm_gold_logprob_norm"] = norm_gold_logprob_norm
             else:
                 raise NotImplementedError(f"Metric {metric} isn't implemented")
         return res
