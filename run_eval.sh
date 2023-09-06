@@ -77,7 +77,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race' \
+                --tasks 'hellaswag,winogrande,piqa,arc_easy,arc_challenge,openbookqa,boolq,rte,wic,record,anli_r1,anli_r2,anli_r3,truthfulqa_mc,race,lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
                 --num_fewshot=0 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/0shot.json \
@@ -86,7 +86,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'hendrycksTest-*,triviaqa' \
+                --tasks 'hendrycksTest-*,triviaqa,bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola,coqa' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \

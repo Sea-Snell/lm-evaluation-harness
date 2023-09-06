@@ -1,4 +1,5 @@
 import os
+import json
 
 TASKS = [
     ('unit_conversion', True),
@@ -26,8 +27,16 @@ if __name__ == "__main__":
                         task_files[f"{task}_{sub_path}"] = os.path.join(path, sub_path, 'task.json')
         else:
             task_files[task] = os.path.join(path, 'task.json')
-
+    
+    total = 0
     for task_name, task_path in task_files.items():
-        os.system(f"cp {task_path} {os.path.join(TARGET_PATH, task_name)}.json")
+        with open(task_path, 'r') as f:
+            n = len(json.load(f)['examples'])
+            print(task_name, n)
+            total += n
+    print(total)
+
+    # for task_name, task_path in task_files.items():
+    #     os.system(f"cp {task_path} {os.path.join(TARGET_PATH, task_name)}.json")
 
 

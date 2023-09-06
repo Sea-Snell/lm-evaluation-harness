@@ -90,13 +90,27 @@ class CoLA(Task):
         ll_true, ll_false = results
         pred = ll_true > ll_false
         gold = doc["label"]
-        return {"mcc": (gold, pred)}
+        gold_logprob = ll_false if gold else ll_true
+        norm_gold_logprob = gold_logprob - np.logaddexp(ll_true, ll_false)
+        return {
+            "mcc": (gold, pred),
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def higher_is_better(self):
-        return {"mcc": True}
+        return {
+            "mcc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }
 
     def aggregation(self):
-        return {"mcc": matthews_corrcoef}
+        return {
+            "mcc": matthews_corrcoef,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
 
 class SST(Task):
