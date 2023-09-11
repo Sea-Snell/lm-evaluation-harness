@@ -133,7 +133,7 @@ do
         export BATCH_SIZE=4
         export MODEL_PATH=/shared/csnell/data_study/7B_v1_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/7B_v1_data/$STEP/evals2
-        export CUDA_VISIBLE_DEVICES=4,5
+        export CUDA_VISIBLE_DEVICES=1,2,5
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
@@ -163,7 +163,7 @@ do
         export BATCH_SIZE=4
         export MODEL_PATH=/shared/csnell/data_study/7B_v2_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/7B_v2_data/$STEP/evals2
-        export CUDA_VISIBLE_DEVICES=4,5
+        export CUDA_VISIBLE_DEVICES=1,2,5
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
