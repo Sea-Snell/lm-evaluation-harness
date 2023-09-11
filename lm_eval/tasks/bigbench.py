@@ -182,7 +182,7 @@ class BigBenchJsonTask(Task):
             else:
                 context = separator.join(
                     [
-                        self.doc_to_text(example) + example["target"]
+                        self.doc_to_text(example) + (rng.choice(example["target"]) if isinstance(example["target"], list) else example["target"])
                         for example in shot_examples
                     ]
                 )
