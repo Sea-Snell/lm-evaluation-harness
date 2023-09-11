@@ -127,7 +127,7 @@ conda activate torch_install
 # done
 
 # 7B_v1_data
-for STEP in 44000 30800 17600 4400
+for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v1_data ($STEP) starting ..."
         export BATCH_SIZE=4
@@ -157,7 +157,7 @@ do
 done
 
 # 7B_v2_data
-for STEP in 44000 30800 17600 4400
+for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v2_data ($STEP) starting ..."
         export BATCH_SIZE=4
