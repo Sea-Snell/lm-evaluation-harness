@@ -5,7 +5,7 @@
 
 conda activate torch_install
 
-7B_v1_data
+# 7B_v1_data
 for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v1_data ($STEP) starting ..."
@@ -35,7 +35,7 @@ do
         echo "7B_v1_data ($STEP) done."
 done
 
-7B_v2_data
+# 7B_v2_data
 for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v2_data ($STEP) starting ..."
