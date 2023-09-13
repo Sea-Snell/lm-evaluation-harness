@@ -224,7 +224,7 @@ done
 for STEP in 400000 500000
 do
         echo "13B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=2
+        export BATCH_SIZE=24
         export MODEL_PATH=/shared/csnell/openllama/13B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/13B_v1/$STEP/evals_2
         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
