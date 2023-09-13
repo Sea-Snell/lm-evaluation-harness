@@ -188,9 +188,9 @@ done
 # done
 
 
-# # log_loss_v_downstream_experiments
+# log_loss_v_downstream_experiments
 
-# conda activate torch_install
+conda activate torch_install
 
 # 13B_v1
 for STEP in 300000
