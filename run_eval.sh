@@ -9,10 +9,10 @@ conda activate torch_install
 for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v1_data ($STEP) starting ..."
-        export BATCH_SIZE=128
+        export BATCH_SIZE=64
         export MODEL_PATH=/shared/csnell/data_study/7B_v1_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/7B_v1_data/$STEP/evals2
-        export CUDA_VISIBLE_DEVICES=4,5,6,7
+        export CUDA_VISIBLE_DEVICES=0,4,5,6,7
         mkdir $OUTPUT_PATH
         # python main.py \
         #         --model hf-causal-experimental \
@@ -39,10 +39,10 @@ done
 for STEP in 22000 17600 13200 8800 4400
 do
         echo "7B_v2_data ($STEP) starting ..."
-        export BATCH_SIZE=128
+        export BATCH_SIZE=64
         export MODEL_PATH=/shared/csnell/data_study/7B_v2_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/7B_v2_data/$STEP/evals2
-        export CUDA_VISIBLE_DEVICES=4,5,6,7
+        export CUDA_VISIBLE_DEVICES=0,4,5,6,7
         mkdir $OUTPUT_PATH
         # python main.py \
         #         --model hf-causal-experimental \
