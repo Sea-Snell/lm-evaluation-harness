@@ -153,7 +153,8 @@ class BigBenchJsonTask(Task):
                 res["norm_gold_logprob"] = norm_gold_logprob
                 res["norm_gold_logprob_norm"] = norm_gold_logprob_norm
             else:
-                raise NotImplementedError(f"Metric {metric} isn't implemented")
+                # raise NotImplementedError(f"Metric {metric} isn't implemented")
+                pass
         return res
 
     def aggregation(self):
