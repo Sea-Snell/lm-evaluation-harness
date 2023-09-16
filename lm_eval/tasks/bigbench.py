@@ -130,14 +130,21 @@ class BigBenchJsonTask(Task):
                 likelihoods = results[:-1] if self._has_generative else results
                 queries = self._doc_to_queries(doc)
 
-                gold_idx = None
-                for idx, query in enumerate(queries):
-                    if doc["target_scores"][query] == 1:
-                        gold_idx = idx
+                gold_idxs = None
+                if "target_scores" in doc:
+                    for idx, query in enumerate(queries):
+                        if doc["target_scores"][query] == 1:
+                            gold_idxs = [idx]
+                else:
+                    if isinstance(doc["target"], list):
+                        gold_idxs = list(range(len(doc["target"])))
+                    else:
+                        gold_idxs = [0]
+                assert gold_idxs is not None
                 completion_len = np.array([float(len(i)) for i in queries])
 
-                gold_logprob = likelihoods[gold_idx]
-                gold_logprob_norm = likelihoods[gold_idx] / completion_len[gold_idx]
+                gold_logprob = np.log(sum([np.exp(likelihoods[gold_idx]) for gold_idx in gold_idxs]))
+                gold_logprob_norm = np.log(sum([np.exp(likelihoods[gold_idx] / completion_len[gold_idx]) for gold_idx in gold_idxs]))
                 norm_gold_logprob = gold_logprob - np.log(np.sum(np.exp(likelihoods)))
                 norm_gold_logprob_norm = gold_logprob_norm - np.log(np.sum(np.exp(likelihoods / completion_len)))
 
@@ -153,12 +160,20 @@ class BigBenchJsonTask(Task):
         return {
             "multiple_choice_grade": mean,
             "exact_str_match": mean,
+            "gold_logprob": mean,
+            "gold_logprob_norm": mean,
+            "norm_gold_logprob": mean,
+            "norm_gold_logprob_norm": mean,
         }
 
     def higher_is_better(self):
         return {
             "multiple_choice_grade": True,
             "exact_str_match": True,
+            "gold_logprob": True,
+            "gold_logprob_norm": True,
+            "norm_gold_logprob": True,
+            "norm_gold_logprob_norm": True,
         }
 
     @functools.lru_cache()
