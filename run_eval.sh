@@ -3,6 +3,54 @@
 
 # data_study_additional_evals
 
+conda activate torch_install
+
+# 1B_v1_data
+for STEP in 14000
+do
+        echo "1B_v1_data ($STEP) starting ..."
+        export BATCH_SIZE=256
+        export MODEL_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/pytorch
+        export OUTPUT_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/evals2_additional
+        export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
+        mkdir $OUTPUT_PATH
+        python main.py \
+                --model hf-causal-experimental \
+                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+                --num_fewshot=0 \
+                --device cuda \
+                --output_path $OUTPUT_PATH/0shot.json \
+                --batch_size $BATCH_SIZE \
+                --no_cache
+        echo "1B_v1_data ($STEP) done."
+done
+
+# 1B_v2_data
+for STEP in 14000
+do
+        echo "1B_v2_data ($STEP) starting ..."
+        export BATCH_SIZE=256
+        export MODEL_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/pytorch
+        export OUTPUT_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/evals2_additional
+        export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
+        mkdir $OUTPUT_PATH
+        python main.py \
+                --model hf-causal-experimental \
+                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+                --num_fewshot=0 \
+                --device cuda \
+                --output_path $OUTPUT_PATH/0shot.json \
+                --batch_size $BATCH_SIZE \
+                --no_cache
+        echo "1B_v2_data ($STEP) done."
+done
+
+# 9/13/23
+
+# data_study_additional_evals
+
 # conda activate torch_install
 
 # # 7B_v1_data
@@ -65,127 +113,127 @@
 #         echo "7B_v2_data ($STEP) done."
 # done
 
-conda activate torch_install
+# conda activate torch_install
 
-# 1B_v1_data
-for STEP in 9800 5600 1400
-do
-        echo "1B_v1_data ($STEP) starting ..."
-        export BATCH_SIZE=256
-        export MODEL_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/evals2_additional
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        # python main.py \
-        #         --model hf-causal-experimental \
-        #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-        #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
-        #         --num_fewshot=0 \
-        #         --device cuda \
-        #         --output_path $OUTPUT_PATH/0shot.json \
-        #         --batch_size $BATCH_SIZE \
-        #         --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "1B_v1_data ($STEP) done."
-done
+# # 1B_v1_data
+# for STEP in 9800 5600 1400
+# do
+#         echo "1B_v1_data ($STEP) starting ..."
+#         export BATCH_SIZE=256
+#         export MODEL_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/evals2_additional
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         # python main.py \
+#         #         --model hf-causal-experimental \
+#         #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#         #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+#         #         --num_fewshot=0 \
+#         #         --device cuda \
+#         #         --output_path $OUTPUT_PATH/0shot.json \
+#         #         --batch_size $BATCH_SIZE \
+#         #         --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "1B_v1_data ($STEP) done."
+# done
 
-# 1B_v2_data
-for STEP in 14000 9800 5600 1400
-do
-        echo "1B_v2_data ($STEP) starting ..."
-        export BATCH_SIZE=256
-        export MODEL_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/evals2_additional
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        # python main.py \
-        #         --model hf-causal-experimental \
-        #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-        #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
-        #         --num_fewshot=0 \
-        #         --device cuda \
-        #         --output_path $OUTPUT_PATH/0shot.json \
-        #         --batch_size $BATCH_SIZE \
-        #         --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "1B_v2_data ($STEP) done."
-done
+# # 1B_v2_data
+# for STEP in 14000 9800 5600 1400
+# do
+#         echo "1B_v2_data ($STEP) starting ..."
+#         export BATCH_SIZE=256
+#         export MODEL_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/evals2_additional
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         # python main.py \
+#         #         --model hf-causal-experimental \
+#         #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#         #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+#         #         --num_fewshot=0 \
+#         #         --device cuda \
+#         #         --output_path $OUTPUT_PATH/0shot.json \
+#         #         --batch_size $BATCH_SIZE \
+#         #         --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "1B_v2_data ($STEP) done."
+# done
 
-# 3B_v1_data
-for STEP in 44000 35200 28800 22400
-do
-        echo "3B_v1_data ($STEP) starting ..."
-        export BATCH_SIZE=128
-        export MODEL_PATH=/shared/csnell/data_study/3B_v1_data/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/data_study/3B_v1_data/$STEP/evals2_additional
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        # python main.py \
-        #         --model hf-causal-experimental \
-        #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-        #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
-        #         --num_fewshot=0 \
-        #         --device cuda \
-        #         --output_path $OUTPUT_PATH/0shot.json \
-        #         --batch_size $BATCH_SIZE \
-        #         --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "3B_v1_data ($STEP) done."
-done
+# # 3B_v1_data
+# for STEP in 44000 35200 28800 22400
+# do
+#         echo "3B_v1_data ($STEP) starting ..."
+#         export BATCH_SIZE=128
+#         export MODEL_PATH=/shared/csnell/data_study/3B_v1_data/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/data_study/3B_v1_data/$STEP/evals2_additional
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         # python main.py \
+#         #         --model hf-causal-experimental \
+#         #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#         #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+#         #         --num_fewshot=0 \
+#         #         --device cuda \
+#         #         --output_path $OUTPUT_PATH/0shot.json \
+#         #         --batch_size $BATCH_SIZE \
+#         #         --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "3B_v1_data ($STEP) done."
+# done
 
-# 3B_v2_data
-for STEP in 44000 30800 17600 4400
-do
-        echo "3B_v2_data ($STEP) starting ..."
-        export BATCH_SIZE=128
-        export MODEL_PATH=/shared/csnell/data_study/3B_v2_data/$STEP/pytorch
-        export OUTPUT_PATH=/shared/csnell/data_study/3B_v2_data/$STEP/evals2_additional
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-        mkdir $OUTPUT_PATH
-        # python main.py \
-        #         --model hf-causal-experimental \
-        #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-        #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
-        #         --num_fewshot=0 \
-        #         --device cuda \
-        #         --output_path $OUTPUT_PATH/0shot.json \
-        #         --batch_size $BATCH_SIZE \
-        #         --no_cache
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
-                --num_fewshot=5 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/5shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
-        echo "3B_v2_data ($STEP) done."
-done
+# # 3B_v2_data
+# for STEP in 44000 30800 17600 4400
+# do
+#         echo "3B_v2_data ($STEP) starting ..."
+#         export BATCH_SIZE=128
+#         export MODEL_PATH=/shared/csnell/data_study/3B_v2_data/$STEP/pytorch
+#         export OUTPUT_PATH=/shared/csnell/data_study/3B_v2_data/$STEP/evals2_additional
+#         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+#         mkdir $OUTPUT_PATH
+#         # python main.py \
+#         #         --model hf-causal-experimental \
+#         #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#         #         --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+#         #         --num_fewshot=0 \
+#         #         --device cuda \
+#         #         --output_path $OUTPUT_PATH/0shot.json \
+#         #         --batch_size $BATCH_SIZE \
+#         #         --no_cache
+#         python main.py \
+#                 --model hf-causal-experimental \
+#                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+#                 --tasks 'bigbench_mult_data_wrangling_*,bigbench_linguistic_mappings_*,bigbench_unit_conversion_*,bigbench_qa_wikidata,cola' \
+#                 --num_fewshot=5 \
+#                 --device cuda \
+#                 --output_path $OUTPUT_PATH/5shot.json \
+#                 --batch_size $BATCH_SIZE \
+#                 --no_cache
+#         echo "3B_v2_data ($STEP) done."
+# done
 
 
 # # log_loss_v_downstream_experiments
