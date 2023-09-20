@@ -9,7 +9,7 @@ conda activate torch_install
 for STEP in 14000
 do
         echo "1B_v1_data ($STEP) starting ..."
-        export BATCH_SIZE=256
+        export BATCH_SIZE=128
         export MODEL_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/1B_v1_data/$STEP/evals2_additional
         export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
@@ -30,7 +30,7 @@ done
 for STEP in 14000
 do
         echo "1B_v2_data ($STEP) starting ..."
-        export BATCH_SIZE=256
+        export BATCH_SIZE=128
         export MODEL_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/data_study/1B_v2_data/$STEP/evals2_additional
         export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
