@@ -14,6 +14,8 @@
   "preferred_score": "multiple_choice_grade",
   "metrics": [
     "multiple_choice_grade",
+    "rouge",
+    "bleu",
     "exact_str_match"
   ],
   "append_choices_to_input": true,
