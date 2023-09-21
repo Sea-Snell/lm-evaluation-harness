@@ -17,7 +17,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext' \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,squad2,wikitext,bigbench_bb_full-*' \
                 --num_fewshot=0 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/0shot.json \
