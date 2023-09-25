@@ -9,7 +9,7 @@ conda activate torch_install
 
 # official_openllama_3B_v1_data
 echo "official_openllama_3B_v1_data last starting ..."
-export BATCH_SIZE=32
+export BATCH_SIZE=128
 export MODEL_PATH=openlm-research/open_llama_3b
 export OUTPUT_PATH=/shared/csnell/data_study/official_openllama_3B_v1_data/last/evals2
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -36,7 +36,7 @@ echo "official_openllama_3B_v1_data last done."
 
 # official_openllama_3B_v2_data
 echo "official_openllama_3B_v2_data last starting ..."
-export BATCH_SIZE=32
+export BATCH_SIZE=128
 export MODEL_PATH=openlm-research/open_llama_3b_v2
 export OUTPUT_PATH=/shared/csnell/data_study/official_openllama_3B_v2_data/last/evals2
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
