@@ -26,10 +26,10 @@ if __name__ == "__main__":
             for sub_path in os.listdir(path):
                 if os.path.isdir(os.path.join(path, sub_path)):
                     if os.path.exists(os.path.join(path, sub_path, 'task.json')):
-                        task_files[f"{task}_{sub_path}"] = os.path.join(path, sub_path, 'task.json')
+                        task_files[f"bb_data_study_{task}_{sub_path}"] = os.path.join(path, sub_path, 'task.json')
                         type_counts[task] += 1
         else:
-            task_files[task] = os.path.join(path, 'task.json')
+            task_files[f"bb_data_study_{task}"] = os.path.join(path, 'task.json')
             type_counts[task] += 1
     
     total = 0
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     print(total)
     print(type_counts)
 
-    # for task_name, task_path in task_files.items():
-    #     os.system(f"cp {task_path} {os.path.join(TARGET_PATH, task_name)}.json")
+    for task_name, task_path in task_files.items():
+        os.system(f"cp {task_path} {os.path.join(TARGET_PATH, task_name)}.json")
 
 

@@ -28,7 +28,7 @@ if __name__ == "__main__":
         
         if not has_subdirs:
             if os.path.exists(os.path.join(path, 'task.json')):
-                task_files[task] = os.path.join(path, 'task.json')
+                task_files[f"bb_full-{task}"] = os.path.join(path, 'task.json')
     
     # total = 0
     # for task_name, task_path in task_files.items():
