@@ -8,10 +8,10 @@ conda activate torch_install
 for STEP in 10000
 do
         echo "3B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=256
+        export BATCH_SIZE=64
         export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_2_additional
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+        export CUDA_VISIBLE_DEVICES=4,5,6,7
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
