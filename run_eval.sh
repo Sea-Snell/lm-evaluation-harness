@@ -26,7 +26,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
@@ -56,7 +56,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
@@ -86,7 +86,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
