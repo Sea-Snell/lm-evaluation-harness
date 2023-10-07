@@ -9,7 +9,7 @@ conda activate torch_install
 for STEP in 10000 50000 100000 150000 200000 250000
 do
         echo "3B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=8
+        export BATCH_SIZE=256
         export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_2_additional
         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -39,7 +39,7 @@ done
 for STEP in 10000 50000 100000 150000 200000 250000
 do
         echo "7B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=8
+        export BATCH_SIZE=128
         export MODEL_PATH=/shared/csnell/openllama/7B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/7B_v1/$STEP/evals_2_additional
         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -69,7 +69,7 @@ done
 for STEP in 20000 100000 200000 300000 400000 500000
 do
         echo "13B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=4
+        export BATCH_SIZE=64
         export MODEL_PATH=/shared/csnell/openllama/13B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/13B_v1/$STEP/evals_2_additional
         export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
