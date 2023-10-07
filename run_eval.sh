@@ -12,7 +12,7 @@ do
         export BATCH_SIZE=8
         export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_2_additional
-        export CUDA_VISIBLE_DEVICES=2,3,4,5,6,7
+        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
@@ -42,7 +42,7 @@ do
         export BATCH_SIZE=8
         export MODEL_PATH=/shared/csnell/openllama/7B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/7B_v1/$STEP/evals_2_additional
-        export CUDA_VISIBLE_DEVICES=2,3,4,5,6,7
+        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
@@ -72,7 +72,7 @@ do
         export BATCH_SIZE=4
         export MODEL_PATH=/shared/csnell/openllama/13B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/13B_v1/$STEP/evals_2_additional
-        export CUDA_VISIBLE_DEVICES=2,3,4,5,6,7
+        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
         mkdir $OUTPUT_PATH
         python main.py \
                 --model hf-causal-experimental \
