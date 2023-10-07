@@ -17,7 +17,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bb_data_study-*,bb_hard-*,bb_lite-*' \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*' \
                 --num_fewshot=0 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/0shot.json \
@@ -26,7 +26,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bb_data_study-*,bb_hard-*,bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
@@ -47,7 +47,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bb_data_study-*,bb_hard-*,bb_lite-*' \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*' \
                 --num_fewshot=0 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/0shot.json \
@@ -56,7 +56,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bb_data_study-*,bb_hard-*,bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
@@ -77,7 +77,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bb_data_study-*,bb_hard-*,bb_lite-*' \
+                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*' \
                 --num_fewshot=0 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/0shot.json \
@@ -86,7 +86,7 @@ do
         python main.py \
                 --model hf-causal-experimental \
                 --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bb_data_study-*,bb_hard-*,bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic,truthfulqa_mc' \
                 --num_fewshot=5 \
                 --device cuda \
                 --output_path $OUTPUT_PATH/5shot.json \
