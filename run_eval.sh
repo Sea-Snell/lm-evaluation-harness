@@ -8,29 +8,29 @@ conda activate torch_install
 for STEP in 10000
 do
         echo "3B_v1 ($STEP) starting ..."
-        export BATCH_SIZE=64
+        export BATCH_SIZE=32
         export MODEL_PATH=/shared/csnell/openllama/3B_v1/$STEP/pytorch
         export OUTPUT_PATH=/shared/csnell/openllama/3B_v1/$STEP/evals_2_additional
-        export CUDA_VISIBLE_DEVICES=4,5,6,7
+        export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
         mkdir $OUTPUT_PATH
-        python main.py \
-                --model hf-causal-experimental \
-                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-                --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*' \
-                --num_fewshot=0 \
-                --device cuda \
-                --output_path $OUTPUT_PATH/0shot.json \
-                --batch_size $BATCH_SIZE \
-                --no_cache
         # python main.py \
         #         --model hf-causal-experimental \
         #         --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
-        #         --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*,winogrande,openbookqa,boolq,rte,wic' \
-        #         --num_fewshot=5 \
+        #         --tasks 'lambada_openai,lambada_openai_cloze,copa,cola,squad2,wikitext,bigbench_bb_data_study-*,bigbench_bb_hard-*,bigbench_bb_lite-*' \
+        #         --num_fewshot=0 \
         #         --device cuda \
-        #         --output_path $OUTPUT_PATH/5shot.json \
+        #         --output_path $OUTPUT_PATH/0shot.json \
         #         --batch_size $BATCH_SIZE \
         #         --no_cache
+        python main.py \
+                --model hf-causal-experimental \
+                --model_args pretrained=$MODEL_PATH,tokenizer=$MODEL_PATH,max_length=2048,use_accelerate=True \
+                --tasks 'lambada_openai,lambada_openai_cloze,cola,squad2,winogrande,openbookqa,boolq,rte,wic' \
+                --num_fewshot=5 \
+                --device cuda \
+                --output_path $OUTPUT_PATH/5shot.json \
+                --batch_size $BATCH_SIZE \
+                --no_cache
         echo "3B_v1 ($STEP) done."
 done
 
