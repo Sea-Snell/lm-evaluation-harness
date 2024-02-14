@@ -220,14 +220,28 @@ class Copa(Task):
         gold = doc["label"]
         pred = np.argmax(results)
         acc = 1.0 if pred == gold else 0.0
+        gold_logprob = results[gold]
+        norm_gold_logprob = gold_logprob - np.logaddexp.reduce(results)
 
-        return {"acc": acc}
+        return {
+            "acc": acc,
+            "gold_logprob": gold_logprob,
+            "norm_gold_logprob": norm_gold_logprob,
+        }
 
     def higher_is_better(self):
-        return {"acc": True}
+        return {
+            "acc": True,
+            "gold_logprob": True,
+            "norm_gold_logprob": True,
+        }
 
     def aggregation(self):
-        return {"acc": mean}
+        return {
+            "acc": mean,
+            "gold_logprob": mean,
+            "norm_gold_logprob": mean,
+        }
 
     @staticmethod
     def convert_choice(choice):
