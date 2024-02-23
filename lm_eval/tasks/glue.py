@@ -90,7 +90,7 @@ class CoLA(Task):
         ll_true, ll_false = results
         pred = ll_true > ll_false
         gold = doc["label"]
-        gold_logprob = ll_false if gold else ll_true
+        gold_logprob = ll_true if gold else ll_false
         norm_gold_logprob = gold_logprob - np.logaddexp(ll_true, ll_false)
         return {
             "mcc": (gold, pred),
